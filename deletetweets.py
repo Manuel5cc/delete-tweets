@@ -57,10 +57,10 @@ def delete(tweetjs_path, date, r):
     with io.open(tweetjs_path, mode="r", encoding="utf-8") as tweetjs_file:
         count = 0
 
-        api = twitter.Api(consumer_key=os.environ["TWITTER_CONSUMER_KEY"],
-                          consumer_secret=os.environ["TWITTER_CONSUMER_SECRET"],
-                          access_token_key=os.environ["TWITTER_ACCESS_TOKEN"],
-                          access_token_secret=os.environ["TWITTER_ACCESS_TOKEN_SECRET"])
+        api = twitter.Api(consumer_key="TWITTER_CONSUMER_KEY",
+                          consumer_secret="TWITTER_CONSUMER_SECRET",
+                          access_token_key="TWITTER_ACCESS_TOKEN",
+                          access_token_secret="TWITTER_ACCESS_TOKEN_SECRET")
         destroyer = TweetDestroyer(api)
 
         tweets = json.loads(tweetjs_file.read()[25:])
@@ -82,13 +82,7 @@ def main():
 
     args = parser.parse_args()
 
-    if not ("TWITTER_CONSUMER_KEY" in os.environ and
-            "TWITTER_CONSUMER_SECRET" in os.environ and
-            "TWITTER_ACCESS_TOKEN" in os.environ and
-            "TWITTER_ACCESS_TOKEN_SECRET" in os.environ):
-        sys.stderr.write("Twitter API credentials not set.")
-        exit(1)
-
+    
     delete(args.file, args.date, args.restrict)
 
 
